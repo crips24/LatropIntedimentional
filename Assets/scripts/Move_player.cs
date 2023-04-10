@@ -31,10 +31,7 @@ public class Move_player : MonoBehaviour
         isGrounded = Physics2D.OverlapArea(GroundCheckLeft.position, GroundCheckRight.position);
         float horisontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         
-        if  (Input.GetButton("Jump") && isGrounded){
-            isJumping =true;
-            Debug.Log("button pressed");
-        }
+
 
 
         MovePlayer(horisontalMovement);
@@ -45,7 +42,12 @@ public class Move_player : MonoBehaviour
         animator.SetFloat("Speed", characterVelocity);
     }
 
-
+    void Update() {
+                if  (Input.GetButtonDown("Jump")){
+            isJumping =true;
+            Debug.Log("button pressed");
+        }
+    }
 
 
     void MovePlayer (float _horisontalMovement)
@@ -62,11 +64,11 @@ public class Move_player : MonoBehaviour
     }
 
     void Flip (float _velocity){
-        if(_velocity > -0.1f){
-            spriteRenderer.flipX=false;
-
-        }else if(_velocity < 0.1f){
+        if(_velocity < -0.1f){
             spriteRenderer.flipX=true;
+
+        }else if(_velocity > 0.1f){
+            spriteRenderer.flipX=false;
         }
 
     }
